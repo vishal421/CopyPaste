@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary SEO — rooms are private; tell search engines to skip -->
+  <title>ClipShare — Secure Room | Real-time Text Sharing</title>
+  <meta name="description" content="You're in a private ClipShare room. Share text and confidential notes in real-time across devices — no login required." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Open Graph (for link previews when sharing a room URL) -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="ClipShare — Join My Room" />
+  <meta property="og:description" content="Join this ClipShare room to share text and confidential notes instantly across devices." />
+  <meta property="og:image"       content="/og-image.png" />
+
+  <!-- Canonical: room URLs are dynamic, suppress duplicates -->
+  <link rel="canonical" href="https://clipshare.app/" />
+
+  <!-- Favicon placeholder -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>📋</text></svg>" />
+
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="room-page">
+
+<!-- ── NAV ──────────────────────────────────────────────────────── -->
+<nav class="room-nav">
+  <a href="/" class="room-logo" aria-label="ClipShare Home">Clip<span>Share</span></a>
+
+  <div class="room-meta">
+    <div class="room-id-badge">
+      <span class="room-id-label">Room</span>
+      <span class="room-id-value" id="roomIdDisplay" aria-label="Room ID">—</span>
+    </div>
+    <div class="users-badge" id="usersBadge" aria-live="polite">
+      <div class="pulse-dot live" id="liveIndicatorDot"></div>
+      <span id="usersCount">1</span> online
+    </div>
+    <!-- My identity badge -->
+    <div class="my-label-wrap">
+      <span class="my-label-badge" id="myLabelBadge" aria-label="Your user label">…</span>
+    </div>
+  </div>
+
+  <div class="nav-actions">
+    <button class="btn-icon" id="qrToggleBtn" title="Show QR Code" aria-label="Toggle QR Code">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <rect x="3" y="3" width="7" height="7" rx="1"/>
+        <rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/>
+        <path d="M14 14h2v2h-2zm4 0h2v2h-2zm0 4h2v2h-2zm-4 4h2v2h-2z"/>
+      </svg>
+      QR
+    </button>
+    <button class="btn-icon" id="copyLinkBtn" title="Copy room link" aria-label="Copy room link">🔗 Copy Link</button>
+    <a href="/" class="btn-icon btn-icon-ghost" aria-label="Create a new room">← New Room</a>
+  </div>
+</nav>
+
+<!-- ── MAIN LAYOUT ───────────────────────────────────────────────── -->
+<main class="room-main" role="main">
+
+  <!-- ── CHAT COLUMN ─────────────────────────────────────────────── -->
+  <div class="editor-col">
+
+    <div class="editor-card">
+      <!-- Card header -->
+      <div class="editor-header">
+        <div class="editor-title">
+          <div class="live-indicator" aria-live="polite">
+            <span id="liveIndicatorText">Connecting…</span>
+          </div>
+        </div>
+        <div class="editor-actions">
+          <button class="btn-clear" id="clearBtn" title="Clear all messages" aria-label="Clear all messages">✕ Clear All</button>
+        </div>
+      </div>
+
+      <!-- Messages area -->
+      <div class="messages-area" id="messages" role="log" aria-label="Messages" aria-live="polite">
+        <!-- Populated by app.js -->
+      </div>
+
+      <!-- Typing indicator -->
+      <div class="typing-indicator" id="typingIndicator" aria-live="polite" style="display:none;"></div>
+
+      <!-- ── INPUT TABS ──────────────────────────────────────────── -->
+      <div class="input-section" role="form" aria-label="Send a message">
+        <!-- Tab switcher -->
+        <div class="input-tabs" role="tablist" aria-label="Message type">
+          <button class="input-tab" id="tabNormal" role="tab" aria-selected="true" aria-controls="normalInputWrap">
+            ✏️ Normal Text
+          </button>
+          <button class="input-tab" id="tabConfidential" role="tab" aria-selected="false" aria-controls="confidentialInputWrap">
+            🔒 Confidential
+          </button>
+        </div>
+
+        <!-- Normal input -->
+        <div id="normalInputWrap" class="input-wrap" role="tabpanel">
+          <textarea
+            id="normalInput"
+            class="message-input"
+            placeholder="Type or paste text… (Enter to send, Shift+Enter for new line)"
+            spellcheck="true"
+            autocomplete="off"
+            rows="3"
+            aria-label="Normal message input"
+            maxlength="100000"
+          ></textarea>
+        </div>
+
+        <!-- Confidential input -->
+        <div id="confidentialInputWrap" class="input-wrap" role="tabpanel" style="display:none;">
+          <div class="confidential-hint">
+            🔒 Confidential messages are shown as <strong>••••••••</strong> to the recipient. They must tap <em>Reveal</em> to read.
+          </div>
+          <textarea
+            id="confidentialInput"
+            class="message-input confidential-input"
+            placeholder="Type confidential / password content here…"
+            spellcheck="false"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            rows="3"
+            aria-label="Confidential message input"
+            maxlength="100000"
+          ></textarea>
+        </div>
+
+        <!-- Send row -->
+        <div class="input-footer">
+          <span class="char-count" id="charCount" aria-live="polite">0 / 100,000</span>
+          <button class="btn-send" id="sendBtn" aria-label="Send message">
+            Send
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+      </div>
+      <!-- END INPUT SECTION -->
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+  </div>
+
+  <!-- ── SIDEBAR ──────────────────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar" aria-label="Room information">
+
+    <!-- QR panel -->
+    <div class="panel" id="qrPanel" aria-label="QR Code panel">
+      <div class="panel-header">
+        <span>📱 Invite via QR Code</span>
+        <button class="panel-close" id="qrCloseBtn" aria-label="Close QR panel">✕</button>
+      </div>
+      <div class="panel-body qr-body">
+        <div class="qr-wrapper"><div id="qrcode"></div></div>
+        <p class="qr-hint">Scan with your phone camera to join this room</p>
+        <div class="qr-url" id="qrUrlDisplay"></div>
+        <button class="btn-copy-link" id="copyRoomLinkBtn">🔗 Copy Room Link</button>
+      </div>
+    </div>
+
+    <!-- Room info panel -->
+    <div class="panel info-panel" aria-label="Room info">
+      <div class="panel-header"><span>ℹ️ Room Info</span></div>
+      <div class="panel-body">
+        <div class="info-row">
+          <span class="info-label">Room ID</span>
+          <span class="info-value mono" id="infoRoomId">—</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Connected</span>
+          <span class="info-value"><span id="infoUsers">1</span> user(s)</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Status</span>
+          <span class="info-value" id="infoStatus" style="color:#22c55e">● Live</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Your ID</span>
+          <span class="info-value" id="myLabelInfo" style="font-weight:700">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tips panel -->
+    <div class="panel tips-panel" aria-label="Usage tips">
+      <div class="panel-header"><span>💡 Tips</span></div>
+      <div class="panel-body tips-body">
+        <div class="tip">📤 Only <strong>you</strong> see your own typing</div>
+        <div class="tip">🔒 <strong>Confidential</strong> mode hides text until revealed</div>
+        <div class="tip">📋 Click 📋 on any message to copy it</div>
+        <div class="tip">📱 Tap <strong>QR</strong> to invite phone users</div>
+        <div class="tip">🗑️ Room auto-deletes when everyone leaves</div>
+      </div>
+    </div>
+
+  </aside>
+</main>
+
+<!-- ── FAB QR (mobile) ─────────────────────────────────────────── -->
+<button class="fab-qr" id="fabQrBtn" title="Show QR Code" aria-label="Show QR Code">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+    <rect x="3" y="3" width="7" height="7" rx="1"/>
+    <rect x="14" y="3" width="7" height="7" rx="1"/>
+    <rect x="3" y="14" width="7" height="7" rx="1"/>
+    <path d="M14 14h2v2h-2zm4 0h2v2h-2zm0 4h2v2h-2zm-4 4h2v2h-2z"/>
+  </svg>
+</button>
+
+<!-- ── MOBILE QR MODAL ─────────────────────────────────────────── -->
+<div class="qr-modal-overlay" id="qrModalOverlay" role="dialog" aria-modal="true" aria-label="QR Code">
+  <div class="qr-modal">
+    <div class="qr-modal-header">
+      <span>📱 Invite via QR Code</span>
+      <button class="panel-close" id="qrModalClose" aria-label="Close QR modal">✕</button>
+    </div>
+    <div class="qr-modal-body">
+      <div class="qr-wrapper" id="qrcodeMobile"></div>
+      <p class="qr-hint">Scan with your phone camera to join this room</p>
+      <div class="qr-url" id="qrUrlMobile"></div>
+      <button class="btn-copy-link" id="copyRoomLinkMobile">🔗 Copy Room Link</button>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+        integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
+        crossorigin="anonymous"></script>
+<script src="/app.js"></script>
+</body>
+</html>
