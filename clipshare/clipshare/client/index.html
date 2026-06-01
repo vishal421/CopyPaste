@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Online Copy Paste Tool | Real-time Clipboard Sharing | ClipShare</title>
+  <meta name="description" content="ClipShare is a free real-time clipboard sharing tool. Copy and paste text across devices instantly. Create a room, share the link, and sync text live — no signup required." />
+  <meta name="keywords" content="copy paste online, share clipboard, live text sharing, instant paste tool, real-time clipboard, text sync, share text online, online notepad, collaborative clipboard, paste online free" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="ClipShare" />
+  <link rel="canonical" href="https://clipshare.app/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="Free Online Copy Paste Tool | ClipShare" />
+  <meta property="og:description" content="Real-time clipboard sharing. Paste text, share a link, instantly sync across devices. 100% free, no signup." />
+  <meta property="og:url"         content="https://clipshare.app/" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="ClipShare — Real-time Clipboard Sharing" />
+  <meta name="twitter:description" content="Share clipboard content in real-time. Free, instant, no signup." />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ClipShare",
+    "url": "https://clipshare.app",
+    "description": "Free real-time clipboard sharing tool. Share text across devices instantly.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ── LANDING PAGE SPECIFIC ── */
+    .landing-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    .lp-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 60px;
+      border-bottom: 1px solid #2a2a3e;
+      background: #0d0d1a;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .lp-logo {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .lp-logo span { color: #7c6ff7; }
+    .lp-nav-btn {
+      background: #7c6ff7;
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .15s;
+      text-decoration: none;
+    }
+    .lp-nav-btn:hover { background: #6a5ee0; }
+
+    /* HERO */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,111,247,.15) 0%, transparent 70%);
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(124,111,247,.15);
+      color: #a89eff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(124,111,247,.3);
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 64px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+      max-width: 800px;
+    }
+    .hero h1 em { font-style: normal; color: #7c6ff7; }
+    .hero-sub {
+      font-size: clamp(15px, 2vw, 19px);
+      color: #8b8ba7;
+      max-width: 540px;
+      line-height: 1.65;
+      margin-bottom: 40px;
+    }
+    .hero-cta-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 60px;
+    }
+    .btn-hero-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #7c6ff7;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 32px rgba(124,111,247,.4);
+      transition: background .15s, transform .1s, box-shadow .15s;
+      text-decoration: none;
+    }
+    .btn-hero-primary:hover {
+      background: #6a5ee0;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(124,111,247,.5);
+    }
+    .btn-hero-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: #8b8ba7;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 12px;
+      border: 1.5px solid #2a2a3e;
+      cursor: pointer;
+      transition: border-color .15s, color .15s;
+      text-decoration: none;
+    }
+    .btn-hero-secondary:hover { border-color: #7c6ff7; color: #a89eff; }
+
+    /* PREVIEW MOCKUP */
+    .hero-mockup {
+      background: #13131f;
+      border: 1px solid #2a2a3e;
+      border-radius: 16px;
+      padding: 20px;
+      width: 100%;
+      max-width: 680px;
+      box-shadow: 0 32px 80px rgba(0,0,0,.6);
+      text-align: left;
+    }
+    .mockup-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .mockup-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .mockup-title {
+      flex: 1;
+      text-align: center;
+      font-size: 12px;
+      color: #4a4a6a;
+      font-weight: 600;
+      margin-right: 32px;
+    }
+    .mockup-textarea {
+      background: #0d0d1a;
+      border: 1px solid #2a2a3e;
+      border-radius: 10px;
+      padding: 16px;
+      width: 100%;
+      min-height: 120px;
+      color: #c0c0d8;
+      font-size: 13px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      line-height: 1.6;
+      resize: none;
+      outline: none;
+    }
+    .mockup-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+    }
+    .mockup-users {
+      font-size: 12px;
+      color: #4a4a6a;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .pulse-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .5; transform: scale(.8); }
+    }
+    .mockup-copy-btn {
+      background: #7c6ff7;
+      color: #fff;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: default;
+    }
+
+    /* TRUST STRIP */
+    .trust-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: #4a4a6a;
+      padding: 24px;
+      border-top: 1px solid #1a1a2e;
+      border-bottom: 1px solid #1a1a2e;
+    }
+    .trust-strip span::before { content: '✓ '; color: #22c55e; }
+
+    /* HOW IT WORKS */
+    .lp-section {
+      padding: 80px 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .lp-section-title {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .lp-section-title h2 {
+      font-size: clamp(24px, 4vw, 38px);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -1px;
+      margin-bottom: 10px;
+    }
+    .lp-section-title p {
+      font-size: 16px;
+      color: #5a5a7a;
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .step-card {
+      background: #13131f;
+      border: 1px solid #2a2a3e;
+      border-radius: 16px;
+      padding: 28px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .step-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,111,247,.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .step-num {
+      font-size: 48px;
+      font-weight: 900;
+      color: rgba(124,111,247,.2);
+      line-height: 1;
+      margin-bottom: 12px;
+      letter-spacing: -2px;
+    }
+    .step-icon { font-size: 32px; margin-bottom: 12px; }
+    .step-card h3 { font-size: 17px; font-weight: 700; color: #e0e0f0; margin-bottom: 8px; }
+    .step-card p  { font-size: 13.5px; color: #5a5a7a; line-height: 1.6; }
+
+    /* FEATURES */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .feature-card {
+      background: #13131f;
+      border: 1px solid #2a2a3e;
+      border-radius: 14px;
+      padding: 24px 20px;
+    }
+    .feature-icon { font-size: 28px; margin-bottom: 12px; }
+    .feature-card h3 { font-size: 15px; font-weight: 700; color: #e0e0f0; margin-bottom: 6px; }
+    .feature-card p  { font-size: 13px; color: #5a5a7a; line-height: 1.55; }
+
+    /* CTA SECTION */
+    .cta-section {
+      padding: 80px 24px;
+      text-align: center;
+      background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(124,111,247,.08) 0%, transparent 70%);
+    }
+    .cta-section h2 { font-size: clamp(24px, 4vw, 40px); font-weight: 800; color: #fff; letter-spacing: -1px; margin-bottom: 12px; }
+    .cta-section p  { font-size: 16px; color: #5a5a7a; margin-bottom: 32px; }
+
+    /* FOOTER */
+    .lp-footer {
+      border-top: 1px solid #1a1a2e;
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .lp-footer p { font-size: 13px; color: #3a3a5a; }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      .lp-nav { padding: 0 20px; }
+      .hero    { padding: 60px 20px 40px; }
+      .steps-grid, .features-grid { grid-template-columns: 1fr; }
+      .lp-footer { justify-content: center; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { letter-spacing: -1px; }
+      .hero-cta-group { flex-direction: column; align-items: stretch; }
+      .btn-hero-primary, .btn-hero-secondary { justify-content: center; }
+      .lp-section { padding: 56px 20px; }
+    }
+  </style>
+</head>
+<body>
+<div class="landing-wrap">
+
+  <!-- NAV -->
+  <nav class="lp-nav">
+    <div class="lp-logo">Clip<span>Share</span></div>
+    <button class="lp-nav-btn" id="navCreateBtn">Start Sharing →</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">⚡ Real-Time · No Signup · 100% Free</div>
+    <h1>The Fastest Way to<br /><em>Share Text</em> Across Devices</h1>
+    <p class="hero-sub">
+      Create a room, share the link, and sync clipboard content in real-time — instantly, from any device, anywhere.
+    </p>
+    <div class="hero-cta-group">
+      <button class="btn-hero-primary" id="heroCreateBtn">🚀 Start Sharing — It's Free</button>
+      <a href="#how-it-works" class="btn-hero-secondary">See How It Works ↓</a>
+    </div>
+
+    <!-- Mockup -->
+    <div class="hero-mockup">
+      <div class="mockup-bar">
+        <div class="mockup-dot" style="background:#ff5f57"></div>
+        <div class="mockup-dot" style="background:#ffbd2e"></div>
+        <div class="mockup-dot" style="background:#28c840"></div>
+        <div class="mockup-title">clipshare.app/r/abc123</div>
+      </div>
+      <textarea class="mockup-textarea" readonly>Paste your text here and it instantly appears on all connected devices.
+
+No account needed. Just share the link and start collaborating. ✨</textarea>
+      <div class="mockup-footer">
+        <div class="mockup-users">
+          <div class="pulse-dot"></div>
+          3 users connected
+        </div>
+        <button class="mockup-copy-btn">📋 Copy All</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <span>No signup required</span>
+    <span>Works on all devices</span>
+    <span>Instant real-time sync</span>
+    <span>QR code invite</span>
+    <span>100% free forever</span>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="lp-section" id="how-it-works">
+    <div class="lp-section-title">
+      <h2>How It Works</h2>
+      <p>Share text across any device in three simple steps</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-icon">🔗</div>
+        <h3>Create a Room</h3>
+        <p>Click "Start Sharing" and a unique room is instantly created with a shareable link. No registration, no setup.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-icon">📤</div>
+        <h3>Share the Link or QR</h3>
+        <p>Send the room URL to anyone, or show the QR code — they scan it and join instantly from their phone.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-icon">⚡</div>
+        <h3>Sync in Real-Time</h3>
+        <p>Type or paste anything in the shared textarea. It appears on every connected device instantly — live.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="lp-section" style="padding-top:0">
+    <div class="lp-section-title">
+      <h2>Everything You Need</h2>
+      <p>Built for speed, simplicity and reliability</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Real-Time Sync</h3>
+        <p>Powered by Socket.IO — text updates propagate to all users in milliseconds, no polling.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>QR Code Invite</h3>
+        <p>Every room generates a QR code. Point your phone camera — join instantly, no typing needed.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Private Rooms</h3>
+        <p>Rooms use random 8-character IDs. Only people with your link can access your room.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <h3>One-Click Copy</h3>
+        <p>Copy the entire shared text to your clipboard instantly with the Copy button.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <h3>Works Everywhere</h3>
+        <p>Desktop, tablet, mobile — any browser, any OS. No app install, no plugins required.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🗑️</div>
+        <h3>Auto Cleanup</h3>
+        <p>Rooms are automatically deleted when all users disconnect. Your text doesn't linger on servers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA -->
+  <section class="cta-section">
+    <h2>Ready to Share Your Clipboard?</h2>
+    <p>It takes 2 seconds. No signup. No install. Just click and share.</p>
+    <button class="btn-hero-primary" id="bottomCreateBtn" style="font-size:17px; padding:16px 40px;">
+      🚀 Create a Free Room Now
+    </button>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="lp-footer">
+    <p>© 2025 ClipShare — Free Real-time Clipboard Sharing Tool</p>
+    <p style="font-size:12px; color:#2a2a4a;">copy paste online · share clipboard · live text sharing · instant paste tool</p>
+  </footer>
+
+</div>
+
+<script>
+  // Create room and redirect
+  async function createRoom() {
+    const btn = event?.target;
+    if (btn) { btn.textContent = 'Creating room…'; btn.disabled = true; }
+    try {
+      const res  = await fetch('/create-room');
+      const data = await res.json();
+      window.location.href = data.url;
+    } catch {
+      alert('Failed to create room. Please try again.');
+      if (btn) { btn.textContent = '🚀 Start Sharing — It\'s Free'; btn.disabled = false; }
+    }
+  }
+
+  document.getElementById('heroCreateBtn').addEventListener('click', createRoom);
+  document.getElementById('navCreateBtn').addEventListener('click', createRoom);
+  document.getElementById('bottomCreateBtn').addEventListener('click', createRoom);
+</script>
+</body>
+</html>
